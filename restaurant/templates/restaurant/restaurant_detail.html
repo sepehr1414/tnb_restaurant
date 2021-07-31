@@ -1,0 +1,55 @@
+{% extends "restaurant/restaurant_list.html" %}
+{% load static %}
+
+{% block content %}
+	<div class="row tm-gallery">
+		<div id="tm-gallery-page-pizza" class="tm-gallery-page">
+			{% for food in foods %}
+						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+							<figure>
+								<ul id="restaurant-list">
+									{% if food.image_food %}
+										<li><img src="{{food.image_food.url}}" alt={{food.name}} class="img-fluid tm-gallery-img"></li>
+									{% endif %}
+									<li class="tm-gallery-description">name:{{food.name}}</li>
+									<li class="tm-gallery-description">grade:{{food.grade}}</li>
+									<li class="tm-gallery-description">type:{{food.type}}</li>
+									<li class="tm-gallery-description">description:{{food.description}}</li>
+									<li class="tm-gallery-description">price{{food.price}} تومان</li>
+								</ul>
+								<br>
+							</figure>
+						</article>	
+			{% endfor %}
+		</div>
+	</div>
+
+	{% with comments.count as total_comments %}
+    <h2>
+      {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+    {% endwith %}
+  {% for comment in comments %}
+    <div class="comment">
+      <p class="info">
+        Comment {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+    </div>
+  {% empty %}
+    <p>There are no comments yet.</p>
+  {% endfor %}
+  {% if new_comment %}
+    <h2>Your comment has been added.</h2>
+  {% else %}
+    <h2>Add a new comment</h2>
+    <form method="post">
+      {{ comment_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Add comment"></p>
+    </form>
+  {% endif %}
+
+{% endblock %}
+

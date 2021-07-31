@@ -1,0 +1,22 @@
+{% extends 'restaurant/restaurant_list.html' %}
+{% load static %}
+
+{% block content %}
+    <div id="tm-gallery-page-pizza" class="tm-gallery-page">
+        {% for food in foods %}
+            <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+                <figure>
+                    {% if food.image_food %}
+                        <img src="{{food.image_food.url}}" alt={{food.name}} class="img-fluid tm-gallery-img">
+                    {% endif %}
+                    <figcaption>
+                        <h4 class="tm-gallery-title">name:{{food.name}}</h4>
+                        <h4 class="tm-gallery-title">restaurant:{{food.restaurant}}</h4>
+                        <p class="tm-gallery-description">description:{{food.description}}</p>
+                        <p class="tm-gallery-price">price:{{food.price}} تومان</p>
+                    </figcaption>
+            </figure>
+        </article>
+        {% endfor %}
+    </div>
+{% endblock %}

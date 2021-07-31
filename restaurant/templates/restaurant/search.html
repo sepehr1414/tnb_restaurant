@@ -1,0 +1,33 @@
+{% extends "restaurant/restaurant_list.html" %}
+
+{% block content %}
+    <center>
+        {% if searched %}
+            <h1>You searched for {{searched}} </h1>
+            <div class="row tm-gallery">
+				<div class="tm-gallery-page">
+					{% for restaurant in restaurants %}
+						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+							<figure>
+								<ul id="restaurant-list">
+									{% if restaurant.image_restaurant %}
+									<li><img src="{{restaurant.image_restaurant.url}}" alt={{restaurants.name}} class="img-fluid tm-gallery-img"></li>
+									{% endif %}
+									<li class="tm-paging-restaurant"><a href="{{ restaurant.get_absolute_url }}" class="tm-paging-link-restaurant">{{restaurant.name}}</a></li>
+									<li class="tm-gallery-description">grade : {{restaurant.grade}}</li>
+									<li class="tm-gallery-description">address : {{restaurant.address}}</li>
+									<li class="tm-gallery-description">city : {{restaurant.city}}</li>
+								</ul>
+								<br>
+							</figure>
+						</article>
+					{% endfor %}
+				</div>
+			</div>
+
+        {% else %}
+            <h1>فراموش کردید چیزی سرچ کنید</h1>
+        {% endif %}
+    </center>
+
+{% endblock %}
